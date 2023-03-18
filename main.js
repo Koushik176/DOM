@@ -5,16 +5,22 @@ const emailInput = document.querySelector('#email');
 
 myForm.addEventListener('submit',onSubmit);
 
-
 function onSubmit(e){
     e.preventDefault();
-    let myObj = {
-        name: nameInput.value,
-        email: emailInput.value,
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const obj = {
+        name,
+        email,
     }
-    let myObj_serialized = JSON.stringify(myObj);
-    localStorage.setItem('myObj',myObj_serialized);
-    console.log(myObj_serialized);
+    localStorage.setItem(obj.email, JSON.stringify(obj))
+    showUserOnScreen(obj)
+}
+function showUserOnScreen(obj){
+    const parentElem = document.getElementById('users');
+    const childElem = document.createElement('li');
+    childElem.textContent = obj.name+'-'+obj.email;
+    parentElem.appendChild(childElem);
 }
 
 btn.addEventListener('mouseover', (e) => {
